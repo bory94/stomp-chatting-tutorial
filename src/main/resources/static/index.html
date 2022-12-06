@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Stomp Chat App</title>
+</head>
+<body onload="webSocket.onload()">
+<div class="container">
+  <div>
+    <div>
+      <input type="text" id="username" placeholder="Input Username">
+      <button id="connect" onclick="webSocket.connect();">Connect</button>
+      <button id="disconnect" disabled="disabled" onclick="webSocket.disconnect();">
+        Disconnect
+      </button>
+    </div>
+    <br/>
+    <div id="mural">
+      <label for="text">Msg:</label>
+      <input type="text" id="text" placeholder="Write a message..."/>
+      <button id="sendMessage" onclick="webSocket.sendMessage();">Send</button>
+      <p id="response"></p>
+    </div>
+  </div>
+</div>
+
+<script src="/webjars/sockjs-client/sockjs.min.js"></script>
+<script src="/webjars/stomp-websocket/stomp.min.js"></script>
+<script src="/js/WebSocketController.js"></script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+chat-app:
+  endpoint: /chat-app
+  relay-host: 10.0.0.133
+  relay-port: 61613
+  client-login: guest
+  client-passcode: guest
+
+jwt:
+  expiration:
+    period: 30000
+
+logging:
+  level:
+    com.bory: debug
+
+certificate:
+  keystore: certificate/pediz.jks
+  publickey: certificate/pediz.cer
+  password: drmamma
+  alias: pediz

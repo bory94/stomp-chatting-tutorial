@@ -21,9 +21,8 @@ class AuthChannelInterceptorAdapter(
     override fun preSend(message: Message<*>, channel: MessageChannel): Message<*>? {
         val accessor = MessageHeaderAccessor.getAccessor(message, StompHeaderAccessor::class.java)
         if (StompCommand.CONNECT == accessor!!.command) {
-            val tokenHeader = accessor.getFirstNativeHeader(TOKEN) ?: throw BadCredentialsException(
-                "$TOKEN is null"
-            )
+            val tokenHeader = accessor.getFirstNativeHeader(TOKEN)
+                ?: throw BadCredentialsException("$TOKEN is null")
             val token = tokenHeader.ifBlank { throw BadCredentialsException("$TOKEN is blank") }
 
             // Token validation and authentication processes are omitted

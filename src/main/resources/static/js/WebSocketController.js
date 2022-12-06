@@ -3,6 +3,7 @@ class WebSocketController {
   constructor() {
     this._onConnected = this._onConnected.bind(this);
     this.onload = this.onload.bind(this)
+    this._clearTextAndFocus = this._clearTextAndFocus.bind(this)
   }
 
   _onConnected(frame) {
@@ -12,6 +13,8 @@ class WebSocketController {
     this.stompClient.subscribe('/user/queue/notification', message => {
       console.log("NOTIFICATION:::", message)
     })
+
+    this._clearTextAndFocus()
   }
 
   setConnected(connected) {
@@ -55,6 +58,10 @@ class WebSocketController {
     p.appendChild(document.createTextNode(message.body));
     response.appendChild(p);
 
+    this._clearTextAndFocus()
+  }
+
+  _clearTextAndFocus() {
     document.getElementById("text").value = ''
     document.getElementById("text").focus()
   }
@@ -67,6 +74,13 @@ class WebSocketController {
       }
 
       this.sendMessage(e.target.value)
+    })
+
+    document.getElementById('username').addEventListener('keyup', e => {
+      if (e.key !== 'Enter') {
+        return
+      }
+      this.connect()
     })
   }
 }

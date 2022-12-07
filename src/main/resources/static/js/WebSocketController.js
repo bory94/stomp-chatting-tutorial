@@ -4,6 +4,7 @@ class WebSocketController {
     this._onConnected = this._onConnected.bind(this);
     this.onload = this.onload.bind(this)
     this._clearTextAndFocus = this._clearTextAndFocus.bind(this)
+    this.showMessage = this.showMessage.bind(this)
   }
 
   _onConnected(frame) {
@@ -47,6 +48,10 @@ class WebSocketController {
 
   sendMessage() {
     const message = document.getElementById('text').value;
+    if (message === '') {
+      return
+    }
+
     this.stompClient.send("/app/message", {}, message);
     this.stompClient.send('/app/notification', {}, message);
   }

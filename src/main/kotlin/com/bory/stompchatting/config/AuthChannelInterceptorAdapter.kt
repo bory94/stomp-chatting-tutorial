@@ -1,5 +1,6 @@
 package com.bory.stompchatting.config
 
+import com.bory.stompchatting.controller.AuthInfo
 import org.springframework.messaging.Message
 import org.springframework.messaging.MessageChannel
 import org.springframework.messaging.simp.stomp.StompCommand
@@ -25,9 +26,10 @@ class AuthChannelInterceptorAdapter(
                 ?: throw BadCredentialsException("$TOKEN is null")
             val token = tokenHeader.ifBlank { throw BadCredentialsException("$TOKEN is blank") }
 
+            val authInfo = AuthInfo.parseToken(token)
             // Token validation and authentication processes are omitted
             val authorities =
-                if (token.uppercase().contains("ADMIN"))
+                if (authInfo.username.uppercase().contains("ADMIN"))
                     listOf(GrantedAuthority { "USER" }, GrantedAuthority { "ADMIN" })
                 else listOf(GrantedAuthority { "USER" })
 

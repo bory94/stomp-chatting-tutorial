@@ -12,9 +12,11 @@
   <div>
     <div>
       <input type="text" id="username" placeholder="Input Username">
-      <button id="connect" onclick="webSocket.connect();">Connect</button>
-      <button id="disconnect" disabled="disabled" onclick="webSocket.disconnect();">
-        Disconnect
+      <input type="password" id="password" placeholder="Input Password">
+      <button id="login" onclick="webSocket.login();">Login</button>
+      <button id="logout" disabled="disabled" onclick="webSocket.logout();">Logout</button>
+      <button id="request" disabled="disabled" onclick="webSocket.request();">Request</button>
+      <button id="request2" disabled="disabled" onclick="webSocket.request2();">Request Async
       </button>
     </div>
     <br/>

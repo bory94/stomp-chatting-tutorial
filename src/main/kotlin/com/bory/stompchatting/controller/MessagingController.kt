@@ -18,21 +18,23 @@ class MessagingController(
     }
 
     @MessageMapping("/message")
-    @SendTo("/topic/mural")
+    @SendTo("/topic/broadcasted-message")
     fun send(principal: Principal, message: String): String {
         LOGGER.debug("SENDING!!!! ::: $principal ::: $message")
-        return "${message.uppercase()} by ${principal.name}"
+        val authInfo = AuthInfo.parseToken(principal.name)
+        return "${message.uppercase()} by ${authInfo.username}"
     }
 
     @MessageMapping("/notification")
     @SendToUser("/queue/notification")
     fun notification(principal: Principal, message: String): String {
         LOGGER.debug("NOTIFICATION!!!! ::: $principal ::: $message")
+        val authInfo = AuthInfo.parseToken(principal.name)
         messaging.convertAndSendToUser(
             "admin",
             "/queue/notification",
             "TO SPECIFIC USER ::: $message"
         )
-        return "NOTIFICATION::: $message"
+        return "NOTIFICATION::: $message from ${authInfo.username}"
     }
 }

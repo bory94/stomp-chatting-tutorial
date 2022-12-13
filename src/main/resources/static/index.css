@@ -12,6 +12,7 @@
 }
 
 .header {
+  position: relative;
   padding-left: 20px;
   display: flex;
   column-gap: 20px;
@@ -22,11 +23,50 @@
   border-bottom: 2px solid darkgray;
 }
 
-.header > * {
+.header > button, input {
   height: 50px;
-  min-width: 100px;
   font-family: "Roboto Light", sans-serif;
   font-size: 18px;
+}
+
+.header > button {
+  min-width: 100px;
+}
+
+.connection-icon {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  right: 20px;
+  border-radius: 50%;
+}
+
+.header > .unconnected {
+  border: 5px solid orange;
+  background-color: rgba(255, 165, 0, 0.5);
+}
+
+.header > .connected {
+  border: 5px solid green;
+  background-color: rgba(0, 255, 0, 0.5);
+}
+
+.header > .connected-big {
+  border: 5px solid lawngreen;
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  right: 20px;
+  border-radius: 50%;
+}
+
+.header > .connected-small {
+  background-color: lawngreen;
+  width: 15px;
+  height: 15px;
+  position: absolute;
+  right: 33px;
+  border-radius: 50%;
 }
 
 .header > button {
@@ -91,3 +131,4 @@
   opacity: 0;
   transition: opacity .4s ease-in;
 }
+

@@ -32,10 +32,10 @@ class WebSocketController {
         : 'hidden';
     document.getElementById('response').innerHTML = '';
 
-    // document.getElementById("username").disabled =
-    //     connected && document.getElementById("username").value !== '';
-    // document.getElementById("password").disabled =
-    //     connected && document.getElementById("password").value !== '';
+    document.querySelector(".connection-icon").classList.add(
+        connected ? "connected" : "unconnected");
+    document.querySelector(".connection-icon").classList.remove(
+        connected ? "unconnected" : "connected");
   }
 
   async login() {
@@ -92,10 +92,14 @@ class WebSocketController {
 
   connect() {
     const token = sessionStorage.getItem("__LOGIN_TOKEN__")
-
     const socket = new SockJS('/chat-app');
     this.stompClient = Stomp.over(socket);
-    this.stompClient.connect({'__TOKEN__': token}, this._onConnected);
+    this.stompClient.connect({'__TOKEN__': token},
+        this._onConnected,
+        (e) => {
+          this.disconnect()
+        }
+    );
   }
 
   disconnect() {

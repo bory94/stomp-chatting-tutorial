@@ -12,9 +12,3 @@ jwt:
 logging:
   level:
     com.bory: debug
-
-certificate:
-  keystore: certificate/pediz.jks
-  publickey: certificate/pediz.cer
-  password: drmamma
-  alias: pediz

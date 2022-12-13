@@ -22,7 +22,7 @@ class LongRunningService(
 
         LOGGER.debug("LONG Running Process Finished...")
 
-        return "Hello Long Running"
+        return "Long Running SYNC Process Finished"
     }
 
     @Async
@@ -36,7 +36,7 @@ class LongRunningService(
         messagingTemplate.convertAndSendToUser(
             token,
             "/queue/notification",
-            WebSocketResponse("Long Running Process Completed.")
+            WebSocketResponse("Long Running ASYNC Process Completed.")
         )
     }
 }

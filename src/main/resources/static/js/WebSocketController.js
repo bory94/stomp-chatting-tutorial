@@ -63,7 +63,7 @@ class WebSocketController {
         })
 
     response.text().then(data => {
-      this.sendMessage(data)
+      this.showNotification({body: data})
     })
   }
 

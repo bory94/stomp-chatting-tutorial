@@ -6,8 +6,13 @@
   font-size: 16px;
 }
 
+body {
+  position: relative;
+  background-color: #efefef;
+  height: 100vh;
+}
+
 .container {
-  min-height: 100vh;
   position: relative;
 }
 
@@ -21,6 +26,10 @@
   height: 80px;
   background-color: lightgray;
   border-bottom: 2px solid darkgray;
+}
+
+.header.connected {
+  background-color: rgba(173, 216, 230, 0.75);
 }
 
 .header > button, input {
@@ -49,6 +58,14 @@
 .header > .connected {
   border: 5px solid green;
   background-color: rgba(0, 255, 0, 0.5);
+  transform-origin: center;
+  animation: beat .28s infinite alternate;
+}
+
+@keyframes beat {
+  to {
+    transform: scale(0.7);
+  }
 }
 
 .header > .connected-big {
@@ -73,8 +90,7 @@
   padding: 10px;
 }
 
-.body {
-  width: 100%;
+.contents-body {
   overflow: scroll;
   background-color: #efefef;
   padding: 20px;
@@ -118,7 +134,6 @@
   margin: 20px;
   padding: 20px;
   overflow: scroll;
-  min-height: 86vh;
   border: 1px solid lightgray;
 }
 

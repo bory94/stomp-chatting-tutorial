@@ -36,6 +36,12 @@ class WebSocketController {
         connected ? "connected" : "unconnected");
     document.querySelector(".connection-icon").classList.remove(
         connected ? "unconnected" : "connected");
+
+    if (connected) {
+      document.querySelector(".header").classList.add("connected")
+    } else {
+      document.querySelector(".header").classList.remove("connected")
+    }
   }
 
   async login() {

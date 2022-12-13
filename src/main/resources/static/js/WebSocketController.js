@@ -94,6 +94,8 @@ class WebSocketController {
     const token = sessionStorage.getItem("__LOGIN_TOKEN__")
     const socket = new SockJS('/chat-app');
     this.stompClient = Stomp.over(socket);
+    this.stompClient.heartbeat.outgoing = 20000;
+    this.stompClient.heartbeat.incoming = 0;
     this.stompClient.connect({'__TOKEN__': token},
         this._onConnected,
         (e) => {

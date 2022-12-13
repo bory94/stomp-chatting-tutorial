@@ -6,26 +6,30 @@
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Stomp Chat App</title>
+  <link rel="stylesheet" href="./index.css">
 </head>
 <body onload="webSocket.onload()">
 <div class="container">
-  <div>
-    <div>
-      <input type="text" id="username" placeholder="Input Username">
-      <input type="password" id="password" placeholder="Input Password">
-      <button id="login" onclick="webSocket.login();">Login</button>
-      <button id="logout" disabled="disabled" onclick="webSocket.logout();">Logout</button>
-      <button id="request" disabled="disabled" onclick="webSocket.request();">Request</button>
-      <button id="request2" disabled="disabled" onclick="webSocket.request2();">Request Async
-      </button>
-    </div>
-    <br/>
+  <div class="header">
+    <input type="text" id="username" class="pre-connected" placeholder="Input Username">
+    <input type="password" id="password" class="pre-connected" placeholder="Input Password">
+    <button id="login" class="pre-connected" onclick="webSocket.login();">Login</button>
+    <button id="logout" class="post-connected" onclick="webSocket.logout();">Logout</button>
+    <button id="request" class="post-connected" onclick="webSocket.request();">Request</button>
+    <button id="request2" class="post-connected" onclick="webSocket.request2();">Request Async
+    </button>
+  </div>
+  <div class="body">
     <div id="mural">
       <label for="text">Msg:</label>
       <input type="text" id="text" placeholder="Write a message..."/>
       <button id="sendMessage" onclick="webSocket.sendMessage();">Send</button>
       <p id="response"></p>
     </div>
+  </div>
+  <div class="notification">
+    <div class="notification--header">Notification</div>
+    <div class="notification--body"></div>
   </div>
 </div>
 

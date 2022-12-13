@@ -35,7 +35,7 @@ class LongRunningService(
         messagingTemplate.convertAndSendToUser(
             token,
             "/queue/notification",
-            "Hello Long Running"
+            "Long Running Process Completed."
         )
     }
 }

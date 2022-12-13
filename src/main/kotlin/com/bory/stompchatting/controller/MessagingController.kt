@@ -35,6 +35,6 @@ class MessagingController(
             "/queue/notification",
             "TO SPECIFIC USER ::: $message"
         )
-        return "NOTIFICATION::: $message from ${authInfo.username}"
+        return "$message from ${authInfo.username}"
     }
 }

@@ -23,16 +23,19 @@ class WebSocketController {
   }
 
   setConnected(connected) {
-    document.getElementById('logout').disabled = !connected;
-    document.getElementById('request').disabled = !connected;
-    document.getElementById('request2').disabled = !connected;
+    document.querySelectorAll(".pre-connected").forEach(
+        elem => elem.disabled = connected);
+    document.querySelectorAll(".post-connected").forEach(
+        elem => elem.disabled = !connected);
+
     document.getElementById('mural').style.visibility = connected ? 'visible'
         : 'hidden';
     document.getElementById('response').innerHTML = '';
-    document.getElementById("username").disabled =
-        connected && document.getElementById("username").value !== '';
-    document.getElementById("password").disabled =
-        connected && document.getElementById("password").value !== '';
+
+    // document.getElementById("username").disabled =
+    //     connected && document.getElementById("username").value !== '';
+    // document.getElementById("password").disabled =
+    //     connected && document.getElementById("password").value !== '';
   }
 
   async login() {
@@ -78,8 +81,7 @@ class WebSocketController {
         })
 
     response.text().then(data => {
-      console.log("Listening Channel", data)
-      this.showMessage({body: `API RESPONSE: ${data}`})
+      this.showNotification({body: data})
     })
   }
 
@@ -128,13 +130,17 @@ class WebSocketController {
   }
 
   showNotification(message) {
-    const response = document.getElementById('response');
-    const p = document.createElement('p');
-    p.style.wordWrap = 'break-word';
-    p.appendChild(document.createTextNode(message.body));
-    response.appendChild(p);
+    const divNotification = document.querySelector('.notification');
+    divNotification.classList.add("visible")
+    divNotification.classList.remove("invisible")
 
-    this._clearTextAndFocus()
+    const divNotificationBody = document.querySelector('.notification--body');
+    divNotificationBody.innerHTML = `<p>${message.body}</p>`;
+
+    setTimeout(() => {
+      divNotification.classList.add("invisible")
+      divNotification.classList.remove("visible")
+    }, 2000)
   }
 
   _clearTextAndFocus() {

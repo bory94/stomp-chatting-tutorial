@@ -13,13 +13,13 @@ class LongRunningController(
     private val longRunningService: LongRunningService
 ) {
     @PostMapping
-    fun longRunning(): String = longRunningService.longRunningSync()
+    fun longRunning(): WebSocketResponse = WebSocketResponse(longRunningService.longRunningSync())
 
     @PostMapping("/async")
-    fun longRunningAsync(@RequestBody tokenRequest: TokenRequest): String {
+    fun longRunningAsync(@RequestBody tokenRequest: TokenRequest): WebSocketResponse {
         longRunningService.longRunningAsync(tokenRequest.token)
 
-        return "Long Running Process ACCEPTED"
+        return WebSocketResponse("Long Running Process ACCEPTED")
     }
 }
 

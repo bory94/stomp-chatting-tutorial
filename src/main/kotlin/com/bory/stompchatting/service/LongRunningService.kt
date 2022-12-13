@@ -1,5 +1,6 @@
 package com.bory.stompchatting.service
 
+import com.bory.stompchatting.controller.WebSocketResponse
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.messaging.simp.SimpMessagingTemplate
@@ -35,7 +36,7 @@ class LongRunningService(
         messagingTemplate.convertAndSendToUser(
             token,
             "/queue/notification",
-            "Long Running Process Completed."
+            WebSocketResponse("Long Running Process Completed.")
         )
     }
 }

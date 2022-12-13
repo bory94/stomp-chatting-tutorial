@@ -19,22 +19,27 @@ class MessagingController(
 
     @MessageMapping("/message")
     @SendTo("/topic/broadcasted-message")
-    fun send(principal: Principal, message: String): String {
+    fun send(principal: Principal, message: String): WebSocketResponse {
         LOGGER.debug("SENDING!!!! ::: $principal ::: $message")
         val authInfo = AuthInfo.parseToken(principal.name)
-        return "${message.uppercase()} by ${authInfo.username}"
+        return WebSocketResponse(message.uppercase(), authInfo.username)
     }
 
     @MessageMapping("/notification")
     @SendToUser("/queue/notification")
-    fun notification(principal: Principal, message: String): String {
+    fun notification(principal: Principal, message: String): WebSocketResponse {
         LOGGER.debug("NOTIFICATION!!!! ::: $principal ::: $message")
         val authInfo = AuthInfo.parseToken(principal.name)
         messaging.convertAndSendToUser(
             "admin",
             "/queue/notification",
-            "TO SPECIFIC USER ::: $message"
+            WebSocketResponse("TO SPECIFIC USER ::: $message")
         )
-        return "$message from ${authInfo.username}"
+        return WebSocketResponse(message.uppercase(), authInfo.username)
     }
 }
+
+data class WebSocketResponse(
+    val message: String,
+    val from: String = ""
+)

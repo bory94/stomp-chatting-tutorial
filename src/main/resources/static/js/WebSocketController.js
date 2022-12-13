@@ -123,7 +123,8 @@ class WebSocketController {
     const response = document.getElementById('response');
     const p = document.createElement('p');
     p.style.wordWrap = 'break-word';
-    p.appendChild(document.createTextNode(message.body));
+    const data = JSON.parse(message.body)
+    p.appendChild(document.createTextNode(data.from + ": " + data.message));
     response.appendChild(p);
 
     this._clearTextAndFocus()
@@ -135,7 +136,9 @@ class WebSocketController {
     divNotification.classList.remove("invisible")
 
     const divNotificationBody = document.querySelector('.notification--body');
-    divNotificationBody.innerHTML = `<p>${message.body}</p>`;
+    const data = JSON.parse(message.body)
+    divNotificationBody.innerHTML = `<p>${data.from ? data.from + ": "
+        : ""}${data.message}</p>`;
 
     setTimeout(() => {
       divNotification.classList.add("invisible")

@@ -17,7 +17,8 @@ body {
 }
 
 .header {
-  position: relative;
+  position: sticky;
+  top: 0;
   padding-left: 20px;
   display: flex;
   column-gap: 20px;
@@ -92,7 +93,7 @@ body {
 }
 
 .contents-body {
-  overflow: scroll;
+  overflow: auto;
   background-color: #efefef;
   padding: 20px;
 }
@@ -128,11 +129,16 @@ body {
 }
 
 #response {
-  display: block;
+  display: flex;
+  flex-direction: column;
   margin: 20px;
   padding: 20px;
-  overflow: scroll;
   border: 1px solid lightgray;
+  background-color: #fefefe;
+  min-height: calc(100vh - 200px);
+  max-height: calc(100vh - 200px);
+  overflow: auto;
+  gap: 10px;
 }
 
 .visible {
@@ -145,3 +151,47 @@ body {
   transition: right .4s ease-in;
 }
 
+.message-row {
+  display: flex;
+}
+
+.message-row-left {
+  justify-content: left;
+
+}
+
+.message-row-right {
+  justify-content: right;
+}
+
+.message-item {
+  padding: 10px;
+  border-radius: 10px;
+  max-width: 400px;
+  min-height: 40px;
+  word-wrap: break-word;
+}
+
+.message-item-left {
+  border: 1px solid gray;
+  background-color: lightgray;
+}
+
+.message-item-right {
+  border: 1px solid cyan;
+  background-color: lightcyan;
+}
+
+.message-from {
+  margin-top: 5px;
+  font-size: 12px;
+  color: darkgray;
+}
+
+.message-from-right {
+  text-align: right;
+}
+
+.message-from-left {
+  text-align: left;
+}

@@ -132,12 +132,36 @@ class WebSocketController {
   }
 
   showMessage(message) {
-    const response = document.getElementById('response');
-    const p = document.createElement('p');
-    p.style.wordWrap = 'break-word';
     const data = JSON.parse(message.body)
-    p.appendChild(document.createTextNode(data.from + ": " + data.message));
-    response.appendChild(p);
+
+    const token = sessionStorage.getItem("__LOGIN_TOKEN__")
+    const messagePositionClass = token.indexOf(data.from) > -1
+        ? "right"
+        : "left"
+
+    const response = document.getElementById('response');
+    const messageRowDiv = document.createElement('div');
+    messageRowDiv.classList.add('message-row')
+    messageRowDiv.classList.add(`message-row-${messagePositionClass}`)
+
+    const messageDiv = document.createElement('div')
+
+    const messageP = document.createElement('p')
+    messageP.appendChild(document.createTextNode(data.message))
+    messageP.classList.add('message-item')
+    messageP.classList.add(`message-item-${messagePositionClass}`)
+    messageDiv.appendChild(messageP);
+
+    if (messagePositionClass === "left") {
+      const fromP = document.createElement('p')
+      fromP.appendChild(document.createTextNode(data.from))
+      fromP.classList.add('message-from')
+      fromP.classList.add(`message-from-${messagePositionClass}`)
+      messageDiv.appendChild(fromP)
+    }
+
+    messageRowDiv.appendChild(messageDiv);
+    response.appendChild(messageRowDiv);
 
     this._clearTextAndFocus()
   }

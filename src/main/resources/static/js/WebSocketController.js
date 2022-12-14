@@ -169,6 +169,8 @@ class WebSocketController {
     messageRowDiv.appendChild(messageDiv);
     response.appendChild(messageRowDiv);
 
+    response.scrollTop = response.scrollHeight
+
     this._clearTextAndFocus()
   }
 
@@ -203,7 +205,7 @@ class WebSocketController {
       this.sendMessage(e.target.value)
     })
 
-    document.getElementById('username').addEventListener('keyup', e => {
+    document.getElementById('password').addEventListener('keyup', e => {
       if (e.key !== 'Enter') {
         return
       }

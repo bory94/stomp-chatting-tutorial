@@ -17,9 +17,12 @@ class LongRunningController(
 
     @PostMapping("/async")
     fun longRunningAsync(@RequestBody tokenRequest: TokenRequest): WebSocketResponse {
-        longRunningService.longRunningAsync(tokenRequest.token)
-
-        return WebSocketResponse("Long Running Process ACCEPTED")
+        val subscription = "/queue/${UUID.randomUUID()}"
+        longRunningService.longRunningAsync(tokenRequest.token, subscription)
+        return WebSocketResponse(
+            message = "Long Running Process ACCEPTED",
+            subscription = subscription
+        )
     }
 }
 

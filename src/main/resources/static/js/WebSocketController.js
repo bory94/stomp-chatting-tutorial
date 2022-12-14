@@ -8,8 +8,8 @@ class WebSocketController {
     this.showNotification = this.showNotification.bind(this)
     this.login = this.login.bind(this)
     this.logout = this.logout.bind(this)
-    this.request = this.request.bind(this)
-    this.request2 = this.request2.bind(this)
+    this.requestSync = this.requestSync.bind(this)
+    this.requestAsync = this.requestAsync.bind(this)
   }
 
   _onConnected(frame) {
@@ -62,7 +62,7 @@ class WebSocketController {
     })
   }
 
-  async request() {
+  async requestSync() {
     const response = await fetch('http://localhost:8080/v1/public/long-running',
         {
           method: 'POST'
@@ -73,7 +73,7 @@ class WebSocketController {
     })
   }
 
-  async request2() {
+  async requestAsync() {
     const token = sessionStorage.getItem("__LOGIN_TOKEN__")
 
     const response = await fetch(
@@ -86,8 +86,14 @@ class WebSocketController {
           body: JSON.stringify({"token": token})
         })
 
-    response.text().then(data => {
-      this.showNotification({body: data})
+    response.json().then(data => {
+      const subscription = this.stompClient.subscribe(
+          "/user" + data.subscription,
+          (message) => {
+            this.showNotification(message)
+            this.stompClient.unsubscribe(subscription.id)
+          })
+      this.showNotification({body: JSON.stringify(data)})
     })
   }
 

@@ -41,5 +41,6 @@ class MessagingController(
 
 data class WebSocketResponse(
     val message: String,
-    val from: String = "SYSTEM"
+    val from: String = "SYSTEM",
+    val subscription: String? = null
 )

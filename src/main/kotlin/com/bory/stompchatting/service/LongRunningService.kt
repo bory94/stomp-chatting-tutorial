@@ -26,7 +26,7 @@ class LongRunningService(
     }
 
     @Async
-    fun longRunningAsync(token: String) {
+    fun longRunningAsync(token: String, subscription: String) {
         LOGGER.debug("ASYNC LONG Running Process Started...")
 
         Thread.sleep(3000)
@@ -35,7 +35,7 @@ class LongRunningService(
 
         messagingTemplate.convertAndSendToUser(
             token,
-            "/queue/notification",
+            subscription,
             WebSocketResponse("Long Running ASYNC Process Completed.")
         )
     }
